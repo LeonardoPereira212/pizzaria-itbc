@@ -7,6 +7,8 @@ const HomeFuncionario = () => {
           
            <MenuFuncionario/>
 
+           <p>Home Funcionario</p>
+
         </div>
    )
 }

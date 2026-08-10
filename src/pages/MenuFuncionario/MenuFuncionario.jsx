@@ -1,9 +1,13 @@
 
+import styles from "./MenuFuncionario.module.css"
+
+
 const MenuFuncionario = () => {
 
      return (
         <div>
- <nav className="navbar navbar-expand-lg navbar-light bg-light p-2 rounded shadow-sm w-100">
+<nav className={`navbar navbar-expand-lg navbar-light bg-light p-2 rounded shadow-sm w-100 ${styles.menu}´`}>
+
  <a className="navbar-brand" href="/pizzaria/funcionario/home">
  Home
  </a>

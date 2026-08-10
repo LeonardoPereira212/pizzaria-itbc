@@ -6,6 +6,8 @@ const ListarProduto = () => {
        <div className="container">
              <MenuFuncionario/>
 
+           <p>Listar Produtos</p>
+
        </div>
    )
 
