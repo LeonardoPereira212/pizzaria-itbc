@@ -1,4 +1,5 @@
 import {
+    HashRouter,
     BrowserRouter,
     Routes,
     Route
@@ -13,7 +14,7 @@ const AppRoutes = () =>{
  
  
     return (
-     <BrowserRouter>
+     <HashRouter>
           <Routes>
            
              <Route
@@ -22,17 +23,17 @@ const AppRoutes = () =>{
              />
  
              <Route
-              path="/pizzaria/funcionario/home"
+              path="/home"
               element={<HomeFuncionario/>}
              />
  
              <Route
-              path="/pizzaria/funcionario/produtos"
+              path="/produtos"
               element={<ListarProduto/>}
              />
  
           </Routes>
-     </BrowserRouter>
+     </HashRouter>
          
     )
 }
