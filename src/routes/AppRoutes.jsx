@@ -9,6 +9,7 @@ from "react-router-dom"
 import HomeFuncionario from "../pages/HomeFuncionario/HomeFuncionario"
 import ListarProduto from "../pages/ListarProduto/ListarProduto"
 import ListarCategoria from "../pages/ListarCategoria/ListarCategoria"
+import NovoProduto from "../pages/NovoProduto/NovoProduto"
  
 const AppRoutes = () =>{
  
@@ -36,6 +37,12 @@ const AppRoutes = () =>{
               path="/categorias"
               element={<ListarCategoria/>}
              />
+
+              <Route
+              path="/produtos/novo"
+              element={<NovoProduto/>}
+             />
+
 
           </Routes>
      </HashRouter>
