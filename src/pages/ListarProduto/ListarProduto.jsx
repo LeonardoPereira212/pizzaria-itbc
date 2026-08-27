@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom"
  
 import MenuFuncionario from "../MenuFuncionario/MenuFuncionario"
+import CredentialUser from "../../components/CredentialUser"
 import api from "../../services/api"
  
  
@@ -76,13 +77,10 @@ const arrayProdutos = [
 ]
  
  
- 
- 
     return (
- 
         <div className="container">
             <MenuFuncionario/>
- 
+            <CredentialUser title="Lista de Produtos"></CredentialUser>
             <div className="table-responsive">
   <table className="table table-bordered table-striped table-hover">
     <thead className="table-success">

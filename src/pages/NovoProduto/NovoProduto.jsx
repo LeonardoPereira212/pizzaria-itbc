@@ -1,7 +1,10 @@
+
+
 import React, {useState, useEffect} from "react"
- 
- 
+
 import MenuFuncionario from "../MenuFuncionario/MenuFuncionario"
+import CredentialUser from "../../components/CredentialUser"
+
 import api from "../../services/api"
  
 const NovoProduto = () => {
@@ -10,6 +13,10 @@ const NovoProduto = () => {
  
     const [categoriaId, setCategoriaId] = useState("")
  
+    const [nome,setNome] = useState("")
+    const [precoVenda, setPrecoVenda] = useState("")
+    const [descricao, setDescricao] = useState("") 
+
     useEffect( ( ) =>{
     api
     .get("/categorias")
@@ -28,8 +35,10 @@ const NovoProduto = () => {
     return (
  
         <div className="container">
+             
              <MenuFuncionario/>
- 
+             <CredentialUser title="Cadastro de Produto"/>
+
              <form className="container-fluid p-4">
             <div className="mb-3">
             <label className="form-label">Nome:</label>
