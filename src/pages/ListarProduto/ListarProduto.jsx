@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react"
  
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
  
 import MenuFuncionario from "../MenuFuncionario/MenuFuncionario"
 import CredentialUser from "../../components/CredentialUser"
+import Modal from "../../components/Modal"
 import api from "../../services/api"
  
  
@@ -21,6 +22,11 @@ const ListarProduto = () => {
  
  
 const [produtos, setProdutos] = useState([])
+ 
+const [isModalOpen, setIsModalOpen] = useState(false);
+const [idProdutoAExcluir, setIdProdutoAExcluir] = useState(null);
+ 
+const navigate = useNavigate();
  
 // useEffect: é um hook do React que serve para executar cógios que ficam fora do controle direto da renderização
 // visual, os chamaodos "efeitos colaterais"
@@ -52,6 +58,27 @@ useEffect(()=>{
  
 },[])
  
+const openModal = (id) => {
+  setIdProdutoAExcluir(id);
+  setIsModalOpen(true);
+};
+ 
+const deleteProduto = async () => {
+  try {
+    const response = await api.delete(`/produtos/${idProdutoAExcluir}`);
+    alert(response.data.message);
+ 
+    setProdutos((produtosAtuais) =>
+      produtosAtuais.filter(
+        (produto) => produto.id !== idProdutoAExcluir
+      )
+    );
+  } catch (error) {
+    alert(`Não foi possível a exclusão do produto com o id ${idProdutoAExcluir}`);
+  }
+  setIsModalOpen(false);
+};
+ 
 const arrayProdutos = [
  
 {
@@ -68,37 +95,39 @@ const arrayProdutos = [
 },
 {
     id: 3,
-    nome: "Pizza Portuguesa",
+    nome: "Pizza de Frango",
     precoVenda: 63.80,
-    descricao: "Pizza de Portuguesa da melhor qualidade"
+    descricao: "Pizza de Frango com catupiry"
 }
  
  
 ]
  
- 
     return (
+ 
         <div className="container">
             <MenuFuncionario/>
-            <CredentialUser title="Lista de Produtos"></CredentialUser>
+            <CredentialUser title="Lista de Produtos"/>
+ 
             <div className="table-responsive">
   <table className="table table-bordered table-striped table-hover">
     <thead className="table-success">
   <tr>
-    <th>ID</th>
-    <th>Nome</th>
-    <th>Preço</th>
-    <th>Ações</th>
+    <td>ID</td>
+    <td>Nome</td>
+    <td>Preço</td>
+    <td>Ações</td>
   </tr>
 </thead>
  
     <tbody>
  
+ 
+ 
     { arrayProdutos.map((produto) => (
  
         <tr>
         <td style={{ fontSize: "13px" }}> {produto.nome}</td>
- 
         <td style={{ fontSize: "13px" }}></td>
         {
             new Intl.NumberFormat("pt-BR", {
@@ -111,12 +140,20 @@ const arrayProdutos = [
  
         <td className="text-center" style={{ width: "100px" }}>
           {/* Botão Editar */}
-          <button className="btn btn-sm btn-primary me-2">
+          <button
+          className="btn btn-sm btn-primary me-2"
+          onClick={() =>
+            navigate(`/produtos/editar/${produto.id}`)
+          }
+          >
             <i className="fas fa-pencil-alt"></i>
           </button>
  
           {/* Botão Excluir */}
-          <button className="btn btn-sm btn-danger">
+          <button className="btn btn-sm btn-danger"
+          onClick={() => openModal(produto.id)}
+         
+          >
             <i className="fas fa-trash-alt"></i>
           </button>
         </td>
@@ -143,6 +180,13 @@ const arrayProdutos = [
       </Link>
  
      </div>
+ 
+     <Modal
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  onConfirm={deleteProduto}
+/>
+ 
  
         </div>
     )
